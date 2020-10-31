@@ -1,6 +1,6 @@
 project.ext {
-  releaseVersionCode = 2011209002
-  releaseVersion     = '2.1.12-09API-002'
+  releaseVersionCode = 2011209003
+  releaseVersion     = '2.1.12-09API-003'
   javaVersion        = JavaVersion.VERSION_1_8
   minSdkVersion      = 9
   targetSdkVersion   = 28

@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -42,13 +43,19 @@ public class VideoActivity extends Activity {
     }
     Log.d(TAG, "Playing back " + videoUrl);
 
+    // Initialize configs
+    ArrayList<String> options = new ArrayList<String>();
+
+    DisplayMetrics display = new DisplayMetrics();
+    getWindowManager().getDefaultDisplay().getMetrics(display);
+
+    // Initialize UI
     setContentView(R.layout.activity_video);
     SurfaceView surfaceView = (SurfaceView) findViewById(R.id.surface);
 
     SurfaceHolder surfaceHolder = surfaceView.getHolder();
     surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
-    ArrayList<String> options = new ArrayList<String>();
+    surfaceHolder.setFixedSize(display.widthPixels, display.heightPixels);
 
     // Create media player
     libVLC          = new LibVLC(getApplicationContext(), options);
@@ -57,6 +64,7 @@ public class VideoActivity extends Activity {
 
     // Set up video output
     mMediaPlayer.getVLCVout().setVideoSurface(surfaceHolder.getSurface(), surfaceHolder);
+    mMediaPlayer.getVLCVout().setWindowSize(display.widthPixels, display.heightPixels);
     mMediaPlayer.getVLCVout().attachViews();
     mMediaPlayer.setEventListener(new MyPlayerListener(this));
     mMediaPlayer.setMedia(media);
