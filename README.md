@@ -20,6 +20,21 @@ Android app to demo the _libVLC_ library.
   - [official builds](https://mvnrepository.com/artifact/org.videolan.android/libvlc-all?repo=jcenter) are available starting at `v3.1.0`
   - an [unofficial build](https://mvnrepository.com/artifact/de.mrmaffen/libvlc-android) is available for `v2.1.12`
 
+#### minSdkVersion
+
+* _libVLC_ `v3.3.1`
+  - [libvlc/AndroidManifest.xml](https://code.videolan.org/videolan/vlc-android/-/blob/3.3.1/libvlc/AndroidManifest.xml)
+  - [libvlc/build.gradle](https://code.videolan.org/videolan/vlc-android/-/blob/3.3.1/libvlc/build.gradle)
+  - [build.gradle](https://code.videolan.org/videolan/vlc-android/-/blob/3.3.1/build.gradle)
+    * minSdkVersion=17
+      - Android 4.2 (Jelly Bean, API level 17)
+* _libVLC_ `v2.1.12`
+  - [libvlc/AndroidManifest.xml](https://code.videolan.org/videolan/vlc-android/-/blob/2.1.12/libvlc/AndroidManifest.xml)
+  - [libvlc/build.gradle](https://code.videolan.org/videolan/vlc-android/-/blob/2.1.12/libvlc/build.gradle)
+  - [build.gradle](https://code.videolan.org/videolan/vlc-android/-/blob/2.1.12/build.gradle)
+    * minSdkVersion=9
+      - Android 2.3 (Gingerbread, API level 9)
+
 #### Results
 
 * _libVLC_ `v2.1.12` is confirmed to work with [_libstreaming_](https://github.com/fyhertz/libstreaming)
