@@ -1,0 +1,78 @@
+apply from: '../constants.gradle'
+apply plugin: 'com.android.application'
+
+android {
+  compileSdkVersion project.ext.compileSdkVersion
+  buildToolsVersion project.ext.buildToolsVersion
+
+  compileOptions {
+    sourceCompatibility project.ext.javaVersion
+    targetCompatibility project.ext.javaVersion
+  }
+
+  defaultConfig {
+    minSdkVersion project.ext.minSdkVersion
+    targetSdkVersion project.ext.targetSdkVersion
+
+    applicationId "com.github.warren_bank.libvlc_demo"
+    versionName project.ext.releaseVersion
+    versionCode project.ext.releaseVersionCode
+  }
+
+  lintOptions {
+    disable 'MissingTranslation'
+    abortOnError true
+  }
+
+  buildTypes {
+    release {
+      shrinkResources true
+      minifyEnabled true
+      proguardFiles = [
+        "proguard-rules.txt",
+        getDefaultProguardFile('proguard-android.txt')
+      ]
+    }
+    debug {
+      jniDebuggable = true
+    }
+  }
+
+  splits {
+    abi {
+      enable true
+      reset()
+      include "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
+      universalApk true
+    }
+  }
+}
+
+/*
+ * -----------------------------------------------------------------------------
+ * notes:
+ *   - based on testing, I would agree with this issue:
+ *       https://code.videolan.org/videolan/vlc-android/-/issues/275
+ *     which points out that libstreaming works with libvlc 2.x but not libvlc 3.x
+ *   - libvlc was added to JCenter @ v3.1.0
+ * -----------------------------------------------------------------------------
+dependencies {
+  implementation 'org.videolan.android:libvlc-all:' + project.ext.libvlcVersion  // (72.8 MB) https://mvnrepository.com/artifact/org.videolan.android/libvlc-all?repo=jcenter
+                                                                                 //           https://code.videolan.org/videolan/vlc-android
+                                                                                 //           https://code.videolan.org/videolan/vlc-android/-/blob/master/build.gradle
+                                                                                 //           https://code.videolan.org/videolan/vlc-android/-/blob/master/application/app/proguard-rules.pro
+                                                                                 //           https://code.videolan.org/videolan/vlc-android/-/blob/master/libvlc/src/org/videolan/libvlc/MediaPlayer.java
+}
+ * -----------------------------------------------------------------------------
+ */
+
+/*
+ * -----------------------------------------------------------------------------
+ * notes:
+ *   - libvlc v2.x is only available on JCenter from an unofficial source
+ * -----------------------------------------------------------------------------
+ */
+dependencies {
+  implementation 'de.mrmaffen:libvlc-android:' + project.ext.libvlcVersion       // (47.7 MB) https://mvnrepository.com/artifact/de.mrmaffen/libvlc-android
+                                                                                 //           https://github.com/mrmaffen/vlc-android-sdk
+}

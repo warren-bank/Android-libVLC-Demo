@@ -1,0 +1,11 @@
+project.ext {
+  releaseVersionCode = 2011217001
+  releaseVersion     = '2.1.12-17API-001'
+  javaVersion        = JavaVersion.VERSION_1_8
+  minSdkVersion      = 17
+  targetSdkVersion   = 28
+  compileSdkVersion  = 28
+  buildToolsVersion  = '28.0.3'
+
+  libvlcVersion      = '2.1.12@aar'
+}
