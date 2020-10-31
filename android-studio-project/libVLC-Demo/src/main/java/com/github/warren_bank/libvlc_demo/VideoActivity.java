@@ -6,6 +6,7 @@ import org.videolan.libvlc.MediaPlayer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -22,11 +23,9 @@ public class VideoActivity extends Activity {
   public static final String TAG       = "VideoActivity";
   public static final String VIDEO_URL = "VIDEO_URL";
 
-  private static final int VideoSizeChanged = -1;
-
-  private String      videoUrl;
-  private LibVLC      libVLC;
-  private MediaPlayer mMediaPlayer;
+  private SurfaceHolder mSurfaceHolder;
+  private LibVLC        mLibVLC;
+  private MediaPlayer   mMediaPlayer;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -34,8 +33,8 @@ public class VideoActivity extends Activity {
     onPreCreate();
 
     // Get URL
-    Intent intent = getIntent();
-    videoUrl = intent.getExtras().getString(VIDEO_URL);
+    Intent intent   = getIntent();
+    String videoUrl = intent.getExtras().getString(VIDEO_URL);
 
     if (videoUrl.isEmpty()) {
       finish();
@@ -46,29 +45,27 @@ public class VideoActivity extends Activity {
     // Initialize configs
     ArrayList<String> options = new ArrayList<String>();
 
-    DisplayMetrics display = new DisplayMetrics();
-    getWindowManager().getDefaultDisplay().getMetrics(display);
-
     // Initialize UI
     setContentView(R.layout.activity_video);
     SurfaceView surfaceView = (SurfaceView) findViewById(R.id.surface);
 
-    SurfaceHolder surfaceHolder = surfaceView.getHolder();
-    surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-    surfaceHolder.setFixedSize(display.widthPixels, display.heightPixels);
+    mSurfaceHolder = surfaceView.getHolder();
+    mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
     // Create media player
-    libVLC          = new LibVLC(getApplicationContext(), options);
-    mMediaPlayer    = new MediaPlayer(libVLC);
-    Media media     = new Media(libVLC, Uri.parse(videoUrl));
+    mLibVLC      = new LibVLC(getApplicationContext(), options);
+    mMediaPlayer = new MediaPlayer(mLibVLC);
+    Media media  = new Media(mLibVLC, Uri.parse(videoUrl));
 
-    // Set up video output
-    mMediaPlayer.getVLCVout().setVideoSurface(surfaceHolder.getSurface(), surfaceHolder);
-    mMediaPlayer.getVLCVout().setWindowSize(display.widthPixels, display.heightPixels);
-    mMediaPlayer.getVLCVout().attachViews();
     mMediaPlayer.setEventListener(new MyPlayerListener(this));
     mMediaPlayer.setMedia(media);
-    mMediaPlayer.play();
+    resizePlayer();
+  }
+
+  @Override
+  public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    resizePlayer();
   }
 
   @Override
@@ -121,12 +118,30 @@ public class VideoActivity extends Activity {
       mMediaPlayer = null;
     }
 
-    if (libVLC != null) {
+    if (mLibVLC != null) {
       try {
-        libVLC.release();
+        mLibVLC.release();
       }
       catch(Exception e) {}
-      libVLC = null;
+      mLibVLC = null;
     }
+  }
+
+  private void resizePlayer() {
+    DisplayMetrics display = new DisplayMetrics();
+    getWindowManager().getDefaultDisplay().getMetrics(display);
+
+    try {
+      mMediaPlayer.stop();
+      mMediaPlayer.getVLCVout().detachViews();
+    }
+    catch(Exception e) {}
+
+    mSurfaceHolder.setFixedSize(display.widthPixels, display.heightPixels);
+
+    mMediaPlayer.getVLCVout().setVideoSurface(mSurfaceHolder.getSurface(), mSurfaceHolder);
+    mMediaPlayer.getVLCVout().setWindowSize(display.widthPixels, display.heightPixels);
+    mMediaPlayer.getVLCVout().attachViews();
+    mMediaPlayer.play();
   }
 }
