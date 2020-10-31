@@ -2,6 +2,7 @@ package com.github.warren_bank.libvlc_demo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,8 +25,12 @@ public class MainActivity extends Activity {
         String videoUrl = textVideoUrl.getText().toString().trim();
 
         if (!videoUrl.isEmpty()) {
-          intent.putExtra(VideoActivity.VIDEO_URL, videoUrl);
-          startActivity(intent);
+          try {
+            Uri videoUri = Uri.parse(videoUrl);
+            intent.setData(videoUri);
+            startActivity(intent);
+          }
+          catch(Exception e) {}
         }
       }
     });

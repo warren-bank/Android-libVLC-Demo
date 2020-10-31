@@ -21,8 +21,7 @@ import android.view.WindowManager;
 import java.util.ArrayList;
 
 public class VideoActivity extends Activity {
-  public static final String TAG       = "VideoActivity";
-  public static final String VIDEO_URL = "VIDEO_URL";
+  public static final String TAG = "VideoActivity";
 
   private SurfaceHolder mSurfaceHolder;
   private LibVLC        mLibVLC;
@@ -36,9 +35,9 @@ public class VideoActivity extends Activity {
 
     // Get URL
     Intent intent   = getIntent();
-    String videoUrl = intent.getExtras().getString(VIDEO_URL);
+    String videoUrl = intent.getDataString();
 
-    if (videoUrl.isEmpty()) {
+    if ((videoUrl == null) || videoUrl.isEmpty()) {
       finish();
       return;
     }

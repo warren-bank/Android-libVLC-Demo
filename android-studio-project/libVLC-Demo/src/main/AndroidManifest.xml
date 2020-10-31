@@ -23,6 +23,69 @@
       android:name=".VideoActivity"
       android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
       android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <!-- supported protocols -->
+
+        <data android:scheme="rtsp"/>
+        <data android:scheme="rtspu"/>
+        <data android:scheme="rtmp"/>
+        <data android:scheme="rtmpe"/>
+        <data android:scheme="rtmps"/>
+        <data android:scheme="rtp"/>
+        <data android:scheme="tcp"/>
+        <data android:scheme="udp"/>
+        <data android:scheme="vlc"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data android:scheme="http"/>
+        <data android:scheme="https"/>
+
+        <!-- video mimetypes -->
+
+        <data android:mimeType="video/*"/>
+        <data android:mimeType="application/mp4"/>
+        <data android:mimeType="application/ogg"/>
+        <data android:mimeType="application/x-matroska"/>
+        <data android:mimeType="application/x-ogg"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data android:scheme="http"/>
+        <data android:scheme="https"/>
+        <data android:host="*"/>
+
+        <!-- video file extensions -->
+
+        <data android:pathPattern=".*\\.avi"/>
+        <data android:pathPattern=".*\\.mkv"/>
+        <data android:pathPattern=".*\\.mov"/>
+        <data android:pathPattern=".*\\.mp4"/>
+        <data android:pathPattern=".*\\.ogg"/>
+        <data android:pathPattern=".*\\.ogv"/>
+        <data android:pathPattern=".*\\.webm"/>
+
+        <data android:pathPattern=".*\\.AVI"/>
+        <data android:pathPattern=".*\\.MKV"/>
+        <data android:pathPattern=".*\\.MOV"/>
+        <data android:pathPattern=".*\\.MP4"/>
+        <data android:pathPattern=".*\\.OGG"/>
+        <data android:pathPattern=".*\\.OGV"/>
+        <data android:pathPattern=".*\\.WEBM"/>
+      </intent-filter>
     </activity>
   </application>
 
