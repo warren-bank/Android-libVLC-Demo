@@ -1,4 +1,10 @@
 <resources>
   <string name="app_name">libVLC Demo</string>
+
+  <!-- MainActivity -->
   <string name="button_play">Play</string>
+
+  <!-- Prefs -->
+  <string translatable="false" name="pref_videourl_key">pref_videourl</string>
+  <string translatable="false" name="pref_videourl_val">rtsp://192.168.1.2:6554?h264</string>
 </resources>

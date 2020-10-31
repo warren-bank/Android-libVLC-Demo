@@ -12,9 +12,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:ems="10"
-    android:hint="rtsp://{user}:{pass}@host:554/{videosource}"
-    android:inputType="textPersonName"
-    android:text="rtsp://192.168.1.2:6554?h264=20" />
+    android:hint="rtsp://{user}:{pass}@host:554/{videosource}" />
 
   <Button
     android:id="@+id/buttonPlay"

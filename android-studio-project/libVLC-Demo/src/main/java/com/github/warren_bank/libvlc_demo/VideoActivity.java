@@ -21,7 +21,7 @@ import android.view.WindowManager;
 import java.util.ArrayList;
 
 public class VideoActivity extends Activity {
-  public static final String TAG = "VideoActivity";
+  private static final String TAG = "VideoActivity";
 
   private SurfaceHolder mSurfaceHolder;
   private LibVLC        mLibVLC;
