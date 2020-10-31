@@ -7,6 +7,7 @@ import org.videolan.libvlc.MediaPlayer;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -26,6 +27,7 @@ public class VideoActivity extends Activity {
   private SurfaceHolder mSurfaceHolder;
   private LibVLC        mLibVLC;
   private MediaPlayer   mMediaPlayer;
+  private Point         mPlayerSize;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -130,6 +132,12 @@ public class VideoActivity extends Activity {
   private void resizePlayer() {
     DisplayMetrics display = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(display);
+    Point newPlayerSize = new Point(display.widthPixels, display.heightPixels);
+
+    if ((mPlayerSize != null) && mPlayerSize.equals(newPlayerSize))
+      return;
+
+    mPlayerSize = newPlayerSize;
 
     try {
       mMediaPlayer.stop();
@@ -137,10 +145,10 @@ public class VideoActivity extends Activity {
     }
     catch(Exception e) {}
 
-    mSurfaceHolder.setFixedSize(display.widthPixels, display.heightPixels);
+    mSurfaceHolder.setFixedSize(mPlayerSize.x, mPlayerSize.y);
 
     mMediaPlayer.getVLCVout().setVideoSurface(mSurfaceHolder.getSurface(), mSurfaceHolder);
-    mMediaPlayer.getVLCVout().setWindowSize(display.widthPixels, display.heightPixels);
+    mMediaPlayer.getVLCVout().setWindowSize(mPlayerSize.x, mPlayerSize.y);
     mMediaPlayer.getVLCVout().attachViews();
     mMediaPlayer.play();
   }
