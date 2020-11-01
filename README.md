@@ -22,18 +22,18 @@ Android app to demo the _libVLC_ library.
 
 #### minSdkVersion
 
-* _libVLC_ `v3.3.1`
-  - [libvlc/AndroidManifest.xml](https://code.videolan.org/videolan/vlc-android/-/blob/3.3.1/libvlc/AndroidManifest.xml)
-  - [libvlc/build.gradle](https://code.videolan.org/videolan/vlc-android/-/blob/3.3.1/libvlc/build.gradle)
-  - [build.gradle](https://code.videolan.org/videolan/vlc-android/-/blob/3.3.1/build.gradle)
-    * minSdkVersion=17
-      - Android 4.2 (Jelly Bean, API level 17)
 * _libVLC_ `v2.1.12`
   - [libvlc/AndroidManifest.xml](https://code.videolan.org/videolan/vlc-android/-/blob/2.1.12/libvlc/AndroidManifest.xml)
   - [libvlc/build.gradle](https://code.videolan.org/videolan/vlc-android/-/blob/2.1.12/libvlc/build.gradle)
   - [build.gradle](https://code.videolan.org/videolan/vlc-android/-/blob/2.1.12/build.gradle)
     * minSdkVersion=9
       - Android 2.3 (Gingerbread, API level 9)
+* _libVLC_ `v3.3.1`
+  - [libvlc/AndroidManifest.xml](https://code.videolan.org/videolan/vlc-android/-/blob/3.3.1/libvlc/AndroidManifest.xml)
+  - [libvlc/build.gradle](https://code.videolan.org/videolan/vlc-android/-/blob/3.3.1/libvlc/build.gradle)
+  - [build.gradle](https://code.videolan.org/videolan/vlc-android/-/blob/3.3.1/build.gradle)
+    * minSdkVersion=17
+      - Android 4.2 (Jelly Bean, API level 17)
 
 #### Results
 
@@ -43,6 +43,18 @@ Android app to demo the _libVLC_ library.
       - _libstreaming_ serves RTSP stream from camera and microphone
     * [RTSP ScreenCaster](https://github.com/warren-bank/Android-RTSP-ScreenCaster) release [`v01.01.03`](https://github.com/warren-bank/Android-RTSP-ScreenCaster/releases/tag/v01.01.03)
       - _libscreening_ serves RTSP stream from screen and microphone
+* _libVLC_ `v3.3.1` is confirmed to work with [_libstreaming_](https://github.com/fyhertz/libstreaming), but with caveats
+  - the official [`v3.3.1` release](https://get.videolan.org/vlc-android/3.3.1/) of [_VLC for Android_](https://www.videolan.org/vlc/download-android.html) acceptably handles orientation changes
+  - my demo app doesn't fare so well
+    * RTSP stream plays in portrait orientation
+    * freezes in landscape orientation
+    * resumes again when rotated back to portrait orientation
+    * this could probably be fixed by using a different event handling methodology
+  - general observations/conclusions:
+    * this library seems a lot more tempermental
+    * the minSdkVersion is considerably higher
+    * the APK file size is nearly double
+    * the end result is that the video doesn't play any better than in _libVLC_ `v2.1.12`
 
 #### Legal:
 
