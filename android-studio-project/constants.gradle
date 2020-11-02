@@ -1,6 +1,6 @@
 project.ext {
-  releaseVersionCode = 303011701  //Integer.MAX_VALUE == 2147483647
-  releaseVersion     = '3.3.1-17API-01'
+  releaseVersionCode = 303011702  //Integer.MAX_VALUE == 2147483647
+  releaseVersion     = '3.3.1-17API-02'
   javaVersion        = JavaVersion.VERSION_1_8
   minSdkVersion      = 17
   targetSdkVersion   = 28

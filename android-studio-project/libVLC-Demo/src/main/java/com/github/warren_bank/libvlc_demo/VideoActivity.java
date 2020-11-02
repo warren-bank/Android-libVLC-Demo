@@ -131,7 +131,15 @@ public class VideoActivity extends Activity {
   private void resizePlayer() {
     DisplayMetrics display = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(display);
-    Point newPlayerSize = new Point(display.widthPixels, display.heightPixels);
+
+    int max = Math.max(display.widthPixels, display.heightPixels);
+    int min = Math.min(display.widthPixels, display.heightPixels);
+    int orientation = getResources().getConfiguration().orientation;
+
+    Point newPlayerSize = (orientation == Configuration.ORIENTATION_LANDSCAPE)
+      ? new Point(max, min)
+      : new Point(min, max)
+    ;
 
     if ((mPlayerSize != null) && mPlayerSize.equals(newPlayerSize))
       return;
