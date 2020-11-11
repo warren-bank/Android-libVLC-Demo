@@ -1,0 +1,4 @@
+<resources>
+  <string name="app_name">libVLC Demostración</string>
+  <string name="button_play">Jugar</string>
+</resources>
